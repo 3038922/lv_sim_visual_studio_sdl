@@ -11,13 +11,13 @@ include_directories(
     "./SDL2/include"
 )
 file(GLOB_RECURSE INCLUDES "lv_drivers/*.h" "lv_examples/*.h"  "lvgl/*.h"  "./*.h" )
-file(GLOB_RECURSE SOURCES  "lv_drivers/*.c" "lv_examples/*.c"  "lvgl/src/*.c" )
-
+file(GLOB_RECURSE SOURCES   "lv_examples/*.c"  )#"lv_drivers/*.c"  "lvgl/src/*.c"
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin) 
 #关闭警告
 add_compile_options(-Wno-unused-private-field -Wno-unused-variable -Wno-deprecated-declarations -Wno-unused-function -Wno-implicit-function-declaration)
 LINK_DIRECTORIES(
-        "SDL2/lib/x64"
+"SDL2/lib/x64"
+"./lib"
 "C:/Program Files (x86)/Windows Kits/10/Lib/10.0.18362.0/um/x64" 
 "C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.24.28314/lib/x64"
 "C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.24.28314/atlmfc/lib/x64"
@@ -25,6 +25,6 @@ LINK_DIRECTORIES(
 "C:/Program Files (x86)/Windows Kits/10/lib/10.0.18362.0/ucrt/x64"
 "C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Auxiliary/VS/UnitTest/lib"
 "C:/Program Files (x86)/Windows Kits/NETFXSDK/4.7.2/lib/um/x64")
-add_executable(main main.c ${SOURCES} ${INCLUDES})
-target_link_libraries(main PRIVATE SDL2 SDL2main )
+add_executable(main main.cpp ${SOURCES} ${INCLUDES})
+target_link_libraries(main PRIVATE SDL2 SDL2main drivers_clang_win lvgl_clang_win)
 add_custom_target (run COMMAND ${EXECUTABLE_OUTPUT_PATH}/main)
